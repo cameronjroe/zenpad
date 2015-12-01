@@ -1,7 +1,7 @@
 {
   "name": "zenpad",
   "version": "1.0.0",
-  "description": "Zenpen (http://zenpen.io) is a web app for writing minimally, and getting into the Zone.",
+  "description": "A minimal writing tool.",
   "main": "index.js",
   "scripts": {
     "build": "gulp build"
