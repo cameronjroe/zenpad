@@ -9,11 +9,10 @@
   <!-- CSS -->
   <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet">
-  <link href="css/fonts.css" rel="stylesheet">
   <!-- LIBS -->
-  <script src="bower_components/FileSaver.min.js"></script>
-  <script src="bower_components/Blob.min.js"></script>
-  <script src="bower_components/screenfull.min.js"></script>
+  <script src="bower_components/FileSaver/FileSaver.min.js"></script>
+  <script src="bower_components/Blob/Blob.js"></script>
+  <script src="bower_components/screenfull/dist/screenfull.min.js"></script>
   <!-- JS -->
   <script src="js/utils.js"></script>
   <script src="js/editor.js"></script>
@@ -48,20 +47,7 @@
       <textarea class='hiddentextbox'></textarea>
     </div>
   </div>
-  <div class="text-options">
-    <div class="options">
-      <span class="no-overflow">
-					<span class="lengthen ui-inputs">
-						<button class="url useicons">&#xe005;</button>
-						<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
-						<button class="bold">b</button>
-						<button class="italic">i</button>
-						<button class="quote">&rdquo;</button>
-					</span>
-      </span>
-    </div>
-  </div>
-  <div class="ui">
+  <!-- <div class="ui">
     <div class="wrapper">
       <div class="top editing">
         <button class="fullscreen useicons" title="Toggle fullscreen">
@@ -78,15 +64,25 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="word-counter">
     <span class="progress"></span>
   </div>
-  <section>
-    <header contenteditable="true" class="header">
-      This is ZenPen
-    </header>
-    <article contenteditable="true" class="content"></article>
+  <section class="zp-writer">
+    <div class="zp-writer__text-options">
+      <div class="zp-writer__options">
+        <span class="no-overflow">
+            <span class="lengthen ui-inputs">
+              <button class="url useicons">&#xe005;</button>
+              <input class="url-input" type="text" placeholder="Type or Paste URL here"/>
+              <button class="bold">b</button>
+              <button class="italic">i</button>
+              <button class="quote">&rdquo;</button>
+            </span>
+        </span>
+      </div>
+    </div>
+    <article contenteditable="true" class="zp-writer__content"></article>
   </section>
   <!-- JS -->
   <script type="text/javascript">

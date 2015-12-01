@@ -3,7 +3,7 @@ ZenPen = window.ZenPen || {};
 ZenPen.editor = (function() {
 
 	// Editor elements
-	var headerField, contentField, cleanSlate, lastType, currentNodeList, savedSelection;
+	var writer, contentField, cleanSlate, lastType, currentNodeList, savedSelection;
 
 	// Editor Bubble elements
 	var textOptions, optionsBox, boldButton, italicButton, quoteButton, urlButton, urlInput;
@@ -17,9 +17,9 @@ ZenPen.editor = (function() {
 		// Set cursor position
 		var range = document.createRange();
 		var selection = window.getSelection();
-		range.setStart(headerField, 1);
-		selection.removeAllRanges();
-		selection.addRange(range);
+		// range.setStart(headerField, 1);
+		// selection.removeAllRanges();
+		// selection.addRange(range);
 
 		createEventBindings();
 
@@ -32,18 +32,17 @@ ZenPen.editor = (function() {
 	function createEventBindings() {
 		// Key up bindings
 		if ( ZenPen.util.supportsHtmlStorage() ) {
-			document.onkeyup = function( event ) {
+			writer.onkeyup = function( event ) {
 				checkTextHighlighting( event );
 				saveState();
 			}
-
 		} else {
-			document.onkeyup = checkTextHighlighting;
+			writer.onkeyup = checkTextHighlighting;
 		}
 
 		// Mouse bindings
-		document.onmousedown = checkTextHighlighting;
-		document.onmouseup = function( event ) {
+		writer.onmousedown = checkTextHighlighting;
+		writer.onmouseup = function( event ) {
 
 			setTimeout(function() {
 				checkTextHighlighting( event );
@@ -51,7 +50,7 @@ ZenPen.editor = (function() {
 		};
 		
 		// Window bindings
-		window.addEventListener( 'resize', function( event ) {
+		window.addEventListener('resize', function( event ) {
 			updateBubblePosition();
 		});
 
@@ -68,11 +67,11 @@ ZenPen.editor = (function() {
 	}
 
 	function bindElements() {
-		headerField = document.querySelector( '.header' );
-		contentField = document.querySelector( '.content' );
-		textOptions = document.querySelector( '.text-options' );
+		contentField = document.querySelector('.zp-writer__content');
+		textOptions = document.querySelector( '.zp-writer__text-options' );
+		writer = document.querySelector('.zp-writer');
 
-		optionsBox = textOptions.querySelector( '.options' );
+		optionsBox = textOptions.querySelector( '.zp-writer__options' );
 
 		boldButton = textOptions.querySelector( '.bold' );
 		boldButton.onclick = onBoldClick;
@@ -119,7 +118,7 @@ ZenPen.editor = (function() {
 				updateBubblePosition();
 
 				// Show the ui bubble
-				textOptions.className = "text-options active";
+				textOptions.className = "zp-writer__text-options active";
 			}
 		}
 
@@ -166,12 +165,12 @@ ZenPen.editor = (function() {
 	}
 
 	function onSelectorBlur() {
-		textOptions.className = "text-options fade";
+		textOptions.className = "zp-writer__text-options fade";
 		setTimeout( function() {
 
-			if (textOptions.className == "text-options fade") {
+			if (textOptions.className == "zp-writer__text-options fade") {
 
-				textOptions.className = "text-options";
+				textOptions.className = "zp-writer__text-options";
 				textOptions.style.top = '-999px';
 				textOptions.style.left = '-999px';
 			}
@@ -206,15 +205,10 @@ ZenPen.editor = (function() {
 	}
 
 	function saveState( event ) {
-		localStorage[ 'header' ] = headerField.innerHTML;
 		localStorage[ 'content' ] = contentField.innerHTML;
 	}
 
 	function loadState() {
-		if ( localStorage[ 'header' ] ) {
-			headerField.innerHTML = localStorage[ 'header' ];
-		}
-
 		if ( localStorage[ 'content' ] ) {
 			contentField.innerHTML = localStorage[ 'content' ];
 		}
@@ -240,9 +234,9 @@ ZenPen.editor = (function() {
 	}
 
 	function onUrlClick() {
-		if ( optionsBox.className == 'options' ) {
+		if ( optionsBox.className == 'zp-writer__options' ) {
 
-			optionsBox.className = 'options url-mode';
+			optionsBox.className = 'zp-writer__options url-mode';
 
 			// Set timeout here to debounce the focus action
 			setTimeout( function() {
@@ -267,7 +261,7 @@ ZenPen.editor = (function() {
 
 		} else {
 
-			optionsBox.className = 'options';
+			optionsBox.className = 'zp-writer__options';
 		}
 	}
 
@@ -280,7 +274,7 @@ ZenPen.editor = (function() {
 	}
 
 	function onUrlInputBlur(event) {
-		optionsBox.className = 'options';
+		optionsBox.className = 'zp-writer__options';
 		applyURL( urlInput.value );
 		urlInput.value = '';
 
