@@ -1,0 +1,26 @@
+{
+  "name": "zenpad",
+  "version": "1.0.0",
+  "description": "Zenpen (http://zenpen.io) is a web app for writing minimally, and getting into the Zone.",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cameronjroe/zenpad.git"
+  },
+  "author": "Cameron J Roe <cameronjroe@gmail.com> (http://cameronjroe.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cameronjroe/zenpad/issues"
+  },
+  "homepage": "https://github.com/cameronjroe/zenpad#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglifyjs": "^0.6.2"
+  }
+}

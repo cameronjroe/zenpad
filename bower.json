@@ -1,0 +1,24 @@
+{
+  "name": "zenpad",
+  "homepage": "https://github.com/cameronjroe/zenpad",
+  "authors": [
+    "Cameron J Roe <cameronjroe@gmail.com>"
+  ],
+  "description": "A minimal writing tool.",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Blob": "*",
+    "FileSaver": "*",
+    "screenfull": "~3.0.0"
+  }
+}

@@ -11,10 +11,9 @@ ZenPen.editor = (function() {
 	var composing;
 
 	function init() {
-
 		composing = false;
 		bindElements();
-
+		
 		// Set cursor position
 		var range = document.createRange();
 		var selection = window.getSelection();
@@ -31,10 +30,8 @@ ZenPen.editor = (function() {
 	}
 
 	function createEventBindings() {
-
 		// Key up bindings
 		if ( ZenPen.util.supportsHtmlStorage() ) {
-
 			document.onkeyup = function( event ) {
 				checkTextHighlighting( event );
 				saveState();
@@ -48,7 +45,7 @@ ZenPen.editor = (function() {
 		document.onmousedown = checkTextHighlighting;
 		document.onmouseup = function( event ) {
 
-			setTimeout( function() {
+			setTimeout(function() {
 				checkTextHighlighting( event );
 			}, 1);
 		};
@@ -60,7 +57,6 @@ ZenPen.editor = (function() {
 
 
 		document.body.addEventListener( 'scroll', function() {
-
 			// TODO: Debounce update bubble position to stop excessive redraws
 			updateBubblePosition();
 		});
@@ -71,9 +67,7 @@ ZenPen.editor = (function() {
 		document.addEventListener( 'compositionend', onCompositionEnd );
 	}
 
-
 	function bindElements() {
-
 		headerField = document.querySelector( '.header' );
 		contentField = document.querySelector( '.content' );
 		textOptions = document.querySelector( '.text-options' );
@@ -98,9 +92,7 @@ ZenPen.editor = (function() {
 	}
 
 	function checkTextHighlighting( event ) {
-
 		var selection = window.getSelection();
-
 
 		if ( (event.target.className === "url-input" ||
 		    event.target.classList.contains( "url" ) ||
@@ -113,7 +105,6 @@ ZenPen.editor = (function() {
 
 		// Check selections exist
 		if ( selection.isCollapsed === true && lastType === false ) {
-
 			onSelectorBlur();
 		}
 
@@ -140,16 +131,15 @@ ZenPen.editor = (function() {
 		var range = selection.getRangeAt(0);
 		var boundary = range.getBoundingClientRect();
 		
-		textOptions.style.top = boundary.top - 5 + window.pageYOffset + "px";
+		console.log(boundary.top);
+		textOptions.style.top = boundary.top - 15 + window.pageYOffset + "px";
 		textOptions.style.left = (boundary.left + boundary.right)/2 + "px";
 	}
 
 	function updateBubbleStates() {
-
 		// It would be possible to use classList here, but I feel that the
 		// browser support isn't quite there, and this functionality doesn't
 		// warrent a shim.
-
 		if ( hasNode( currentNodeList, 'B') ) {
 			boldButton.className = "bold active"
 		} else {
@@ -176,7 +166,6 @@ ZenPen.editor = (function() {
 	}
 
 	function onSelectorBlur() {
-
 		textOptions.className = "text-options fade";
 		setTimeout( function() {
 
@@ -190,7 +179,6 @@ ZenPen.editor = (function() {
 	}
 
 	function findNodes( element ) {
-
 		var nodeNames = {};
 
 		// Internal node?
@@ -214,18 +202,15 @@ ZenPen.editor = (function() {
 	}
 
 	function hasNode( nodeList, name ) {
-
 		return !!nodeList[ name ];
 	}
 
 	function saveState( event ) {
-		
 		localStorage[ 'header' ] = headerField.innerHTML;
 		localStorage[ 'content' ] = contentField.innerHTML;
 	}
 
 	function loadState() {
-
 		if ( localStorage[ 'header' ] ) {
 			headerField.innerHTML = localStorage[ 'header' ];
 		}
@@ -244,7 +229,6 @@ ZenPen.editor = (function() {
 	}
 
 	function onQuoteClick() {
-
 		var nodeNames = findNodes( window.getSelection().focusNode );
 
 		if ( hasNode( nodeNames, 'BLOCKQUOTE' ) ) {
@@ -256,7 +240,6 @@ ZenPen.editor = (function() {
 	}
 
 	function onUrlClick() {
-
 		if ( optionsBox.className == 'options' ) {
 
 			optionsBox.className = 'options url-mode';
@@ -288,8 +271,7 @@ ZenPen.editor = (function() {
 		}
 	}
 
-	function onUrlInputKeyDown( event ) {
-
+	function onUrlInputKeyDown(event) {
 		if ( event.keyCode === 13 ) {
 			event.preventDefault();
 			applyURL( urlInput.value );
@@ -297,8 +279,7 @@ ZenPen.editor = (function() {
 		}
 	}
 
-	function onUrlInputBlur( event ) {
-
+	function onUrlInputBlur(event) {
 		optionsBox.className = 'options';
 		applyURL( urlInput.value );
 		urlInput.value = '';
@@ -307,8 +288,7 @@ ZenPen.editor = (function() {
 		updateBubbleStates();
 	}
 
-	function applyURL( url ) {
-
+	function applyURL(url) {
 		rehighlightLastSelection();
 
 		// Unlink any current links
@@ -327,12 +307,10 @@ ZenPen.editor = (function() {
 	}
 
 	function rehighlightLastSelection() {
-
 		window.getSelection().addRange( lastSelection );
 	}
 
 	function getWordCount() {
-		
 		var text = ZenPen.util.getText( contentField );
 
 		if ( text === "" ) {
@@ -342,7 +320,7 @@ ZenPen.editor = (function() {
 		}
 	}
 
-	function onCompositionStart ( event ) {
+	function onCompositionStart (event) {
 		composing = true;
 	}
 
